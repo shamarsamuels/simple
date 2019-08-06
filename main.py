@@ -24,7 +24,7 @@ class ProfilePage(webapp2.RequestHandler):
         user = self.request.cookies.get('id')
         if user:
             profile_template = the_jinja_env.get_template('templates/profile.html')
-            self.response.write(profile_template.render({'username':'dad'}))
+            self.response.write(profile_template.render({'username':'noob'}))
         else:
             self.redirect(url + 'form')
 
