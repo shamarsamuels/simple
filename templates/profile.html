@@ -2,13 +2,27 @@
 <html>
     <head>
         <title>welcome {{username}}</title>
-        <style>
-            #header{
-                font-family: 'Courier New', Courier, monospace;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
     </head>
     <body>
-        <h1 id= 'header'>welcome {{username}}</h1>
+        <h1 class='input_header'>hey {{username}}</h1>
+        <form method="post" action="">
+            <input type="text" name="search_input"><input type="submit" name="search" value="search">
+            <input type="submit" name="signout" value="sign out">
+        </form>
+
+        <form method="post" action="">
+            <input type="text" name="content"><input type="submit" name="post" value="post">
+        </form>
+        <h3 class='input_header'>posts</h3>
+        <hr>
+        {% for post in posts %}
+            <div>
+                <h4>Author : {{post.author}}</h4>
+                <h4>Time : {{post.timestamp}}</h4>
+                <h4>Message : {{post.content}}</h4>
+            </div>
+            <hr>
+        {% endfor %}
     </body>
 </html>
