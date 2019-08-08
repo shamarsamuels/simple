@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>welcome {{username}}</title>
+        <title>{{username}}</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
     </head>
     <body>
-        <h1 class='input_header'>hey {{username}}</h1>
-        <form method="post" action="">
+        <h1 style="display:inline;" class='text username centered'>{{username}}</h1>
+        <form style="display:inline;" method="post" action="">
             <input type="text" name="search_input"><input type="submit" name="search" value="search">
             <input type="submit" name="signout" value="sign out">
         </form>
@@ -14,15 +14,20 @@
         <form method="post" action="">
             <input type="text" name="content"><input type="submit" name="post" value="post">
         </form>
-        <h3 class='input_header'>posts</h3>
         <hr>
+        <h3 class='text centered'>posts</h3>
+        <hr>
+        <div class='post_container'>
         {% for post in posts %}
-            <div>
-                <h4>Author : {{post.author}}</h4>
-                <h4>Time : {{post.timestamp}}</h4>
-                <h4>Message : {{post.content}}</h4>
+            <div class= 'post'>
+                <div>
+                    <h4 style="display:inline;" class='text post_element'>{{post.author}} -</h4>
+                    <h5 style="display:inline;" class='text post_element'>{{post.timestamp}}</h5>
+                </div>
+                <h3 class='text post_element'>{{post.content}}</h3>
             </div>
             <hr>
         {% endfor %}
+        </div>
     </body>
 </html>

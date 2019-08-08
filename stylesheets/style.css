@@ -1,8 +1,27 @@
-.input_header{
+.text{
     font-family: 'Courier New', Courier, monospace;
+    color : #1d6266;
+    margin : 15px;
 }
 
+.centered {
+    text-align: center;
+}
 .error{
     font-family: 'Courier New', Courier, monospace;
     color: red;
+}
+
+body {
+    background-color: #b4d8ed;
+}
+
+.post {
+    background-color: white;
+    margin: 0px;
+    padding: 15px;
+}
+
+.post_element {
+    margin : 5px;
 }

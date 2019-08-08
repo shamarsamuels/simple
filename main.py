@@ -1,15 +1,16 @@
 import webapp2
 import jinja2
 import os
-import datetime
 from google.appengine.ext import ndb
-from google.appengine.api.mail import EmailMessage as Mail
 url = 'http://localhost:8080/'
+
 
 class Post(ndb.Model):
     author = ndb.StringProperty(required=True)
     content = ndb.StringProperty(required=True)
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
+    id = ndb.IntegerProperty(required=True)
+
 
 class User(ndb.Model):
     username = ndb.StringProperty(required=True)
@@ -20,12 +21,13 @@ class User(ndb.Model):
     password = ndb.StringProperty(required=True)
     posts = ndb.StructuredProperty(Post, repeated=True)
 
+
 the_jinja_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-# the handler section
+
 def get_current_user(current_page):
     user = current_page.request.cookies.get('id')
     if user:
@@ -51,8 +53,8 @@ class ProfilePage(webapp2.RequestHandler):
             if self.request.get('post'):
                 content = self.request.get('content')
                 if len(content) > 0:
-                    new_post = Post(author = user.username, content=content)
-                    user.posts.insert(0,new_post)
+                    new_post = Post(author=user.username, content=content, id=len(user.posts)+1)
+                    user.posts.insert(0, new_post)
                     user.put()
             elif self.request.get('signout'):
                 self.response.delete_cookie('id')
@@ -60,8 +62,9 @@ class ProfilePage(webapp2.RequestHandler):
                 
         self.redirect(url)
 
+
 class FormPage(webapp2.RequestHandler):
-    def get(self): #for a get request
+    def get(self):
         form_template = the_jinja_env.get_template('templates/form.html')
         self.response.write(form_template.render())  # the response
     
